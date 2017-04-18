@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Libre+Franklin%7COpen+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/helper.css" type="text/css">
+    <link rel="stylesheet" href="css/grid.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <nav>
+        <ul id="navigationList">
+            <li><a href="index.html" id="homeNav">Home</a>
+            </li>
+            <li><a href="photos.html" id="photosNav">Photos</a>
+            </li>
+            <li><a href="about.html" id="aboutNav">About</a>
+            </li>
+            <li><a href="starwars.html" id="starWarsNav">Star Wars API</a>
+            </li>
+            <li><a href="contact.html" id="contactNav">Contact Us</a>
+            </li>
+        </ul>
+    </nav>
+
+    <header class="swImage">
+        <h1>Star Wars</h1>
+
+    </header>
+    
+    <!--<section id="movieChoices">
+        <a id="newHopeLink" href="starwars.html?film=1">A New Hope</a>
+        <a id="empireLink" href="starwars.html?film=2">The Empire Strikes Back</a>
+        <a href="starwars.html?film=3">Return Of the Jedi</a>
+        <a href="starwars.html?film=4">The Phantom Menace</a>
+        <a href="starwars.html?film=5">Attack Of The Clones</a>
+        <a href="starwars.html?film=6">Revenge of the Sith</a>
+        <a href="starwars.html?film=7">The Force Awakens</a>
+    </section>-->
+    
+    <section id="movieChoices">
+        <ul> 
+            <li id="newHopeLink">A New Hope</li>
+            <li id="empireLink">The Empire Strikes Back</li>
+            <li id="returnJediLink">Return of the Jedi</li>
+            <li id="movie4">The Phantom Menace</li>
+            <li id="movie5">Attack of the Clones</li>
+            <li id="movie6">Revenge of the Sith</li>
+            <li id="movie7">The Force Awakens</li>
+        </ul>
+    
+        </section>
+      
+    <main class="swPage">
+        <div class="fade"></div>
+        <div class="star-wars">
+            <div class="crawl">
+                <p>This is the opening crawl for the movie..... <span id="openingCrawl"></span></p>
+            </div>
+        </div><!--.star-wars-->
+        
+        
+        <section id="starWarsInfo">
+        
+        <div class="sidebar">
+            <audio autoplay loop controls>
+              <source src="multimedia/tractor-beam.mp3" type="audio/mpeg">
+              
+        </audio>
+            <p>Directed by <span id="showDirector">placeholder</span>
+            </p>
+            <p>Episode number <span id="episodeNumber"></span>
+            </p>
+            <p>Produced by <span id="showProducer"></span>
+            </p>
+            <p>Released  <span id="showRelease"></span></p>
+            
+            <ul id="listOfCharacters">Characters: </ul>
+            <ul id="listOfVehicles">Vehicles: </ul>
+            <ul id="listOfPlanets">Planets: </ul>
+            <ul id="listOfSpecies">Species: </ul>
+            <ul id="listOfStarships">Starships: </ul>
+        </div>
+
+
+        
+        <div>
+            <h3></h3>
+        </div>
+        
+
+   </section>
+    </main>
+
+    <footer>
+        <p>Copyright &copy; 2016 - <span id="currentYear">[placeholder, get the current year]</span>.</p>
+    </footer>
+    <script src="js/swapi.js"></script>
+    <script>
+        
+        $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results==null){
+        return null;
+        }else{
+        return results[1] || 0;
+        }
+            
+        }
+        
+    if ($.urlParam("film") !== null) {
+        var filmParam = $.urlParam("film");
+        
+        console.log(filmParam);
+        
+         // We are creating a Boba fett object which contains lots of info in JSON format. We cannot play with the object in the console because its an anonyous function.
+
+        $("#newHopeLink").on("click", function() {
+        swapiModule.getFilm(1,filmParam, function(bobaFett) {
+            console.log(bobaFett);
+            
+            $("title, h1").html(bobaFett.title);
+            console.log(bobaFett.title);
+            
+            // This will display the intro crawl to the movie animated through CSS
+            $("#openingCrawl").html(bobaFett.opening_crawl);
+            console.log(bobaFett.opening_crawl);
+            
+            
+            // This will display the director of the movie
+            $("#showDirector").html(bobaFett.director);
+            console.log(bobaFett.director);
+            
+            // This will display the Episode number of the movie
+            
+            $("#episodeNumber").html(bobaFett.episode_id);
+            console.log(bobaFett.episode_id);
+        
+            
+            // This will display the producer of the movie
+            $("#showProducer").html(bobaFett.producer);
+            console.log(bobaFett.producer);
+            
+            //This will display the release date of the movie
+            $("#showRelease").html(bobaFett.release_date);
+            console.log(bobaFett.release_date);
+            
+            //This will show the characters in the movie in an array
+            $(bobaFett.characters).each(
+               function() {
+                   var character = this.split("/");
+                   swapiModule.getPerson(character[5], function(jarJar) {
+                   console.log(jarJar.name);
+                   $("#listOfCharacters").append("<li>" + jarJar.name + "</li>");
+                 }
+               );
+              }
+            );
+            
+            // This will show the vehicles in the movie in an array
+            $(bobaFett.vehicles).each(
+               function() {
+                   var vehicle = this.split("/");
+                   swapiModule.getVehicle(vehicle[5], function(jarJar) {
+                   console.log(jarJar.name);
+                   $("#listOfVehicles").append("<li>" + jarJar.name + "</li>");
+                   }
+                 );
+               }
+            );
+            
+            //This will show the planets in the movie in an array Planets - getPlanet(id
+            $(bobaFett.planets).each(
+             function() {
+                 var planet = this.split("/");
+                 swapiModule.getPlanet(planet[5], function(jarJar) {
+                 console.log(jarJar.name);
+                 $("#listOfPlanets").append("<li>" + jarJar.name + "</li>")
+                 }
+                 );
+             }
+            );
+            
+            //This will show the species in the movie in an array Species - getSpecies(id)
+            $(bobaFett.species).each(
+              function() {
+                  var species = this.split("/");
+                  swapiModule.getSpecies(species[5], function(jarJar) {
+                  console.log(jarJar.name);
+                  $("#listOfSpecies").append("<li>" + jarJar.name + "</li>")
+                    }
+                  );
+                }
+             );
+            
+            //This will show the starships in the movie in an array Starships - getStarship(id)
+            $(bobaFett.starships).each(
+             function() {
+                 var starship = this.split("/");
+                 swapiModule.getStarship(starship[5], function(jarJar) {
+                 console.log(jarJar.name);
+                 $("#listOfStarships").append("<li>" + jarJar.name + "</li>")
+                 }
+               );
+             }
+            );
+        
+            
+        })/*<---end of on onclick*/
+             
+            
+
+        });/*<----end of swapimodule.getfilm*/
+        
+    } else {
+        $("#starWarsInfo").hide();
+        console.log("whats going on here?");
+    }
+    </script>
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Contact Form</title>
+    <link href="https://fonts.googleapis.com/css?family=Libre+Franklin%7COpen+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/helper.css" type="text/css">
+    <link rel="stylesheet" href="css/grid.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <nav>
+        <ul id="navigationList">
+            <li><a href="index.html" id="homeNav">Home</a></li>
+            <li><a href="photos.html" id="photosNav">Photos</a></li>
+            <li><a href="about.html" id="aboutNav">About</a></li>
+            <li><a href="starwars.html" id="starWarsNav">Star Wars API</a></li>
+            <li><a href="contact.html" id="contactNav">Contact Us</a></li>
+        </ul>
+        <section class="resizeFont">
+            <ul>
+                <li id="18font" style="font-size: 30px;">A</li>
+                <li id="16font" style="font-size: 20px; margin-top: 3px;">A</li>
+                <li id="12font" style="margin-top: 6px;">A</li>
+            </ul>
+    
+        </section>
+    </nav>
+
+    <header>
+        <h1>Sample Contact Form</h1>
+        
+    </header>
+    
+    
+
+    <main>
+        
+    
+      First Name: <input type="text" name="firstName" id="firstName">
+      <br>
+      Last Name: <input type="text" name="lastName" id="lastName">
+      <br>
+      <input type="submit" id="setPersonalInfo">
+        
+    </main>
+
+    <footer>
+        <p>Copyright &copy; 2016 - <span id="currentYear">[placeholder, get the current year]</span>.</p>
+    </footer>
+    <script>
+      $("#setPersonalInfo").on("click", 
+         
+          function() {
+          
+          sessionStorage.firstName = $("#firstName").get(0).value;
+          sessionStorage.lastName = $("#lastName").get(0).value;
+          location.reload();
+      }
+    );
+    </script>
+     <script src="js/scripts.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>About Jquery and Event Handlers</title>
+    <link href="https://fonts.googleapis.com/css?family=Libre+Franklin%7COpen+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/helper.css" type="text/css">
+    <link rel="stylesheet" href="css/grid.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <nav>
+        <ul id="navigationList">
+            <li><a href="index.html" id="homeNav">Home</a></li>
+            <li><a href="photos.html" id="photosNav">Photos</a></li>
+            <li><a href="about.html" id="aboutNav">About</a></li>
+            <li><a href="starwars.html" id="starWarsNav">Star Wars API</a></li>
+            <li><a href="contact.html" id="contactNav">Contact Us</a></li>
+        </ul>
+        <section class="resizeFont">
+            <ul>
+                <li id="18font" style="font-size: 30px;">A</li>
+                <li id="16font" style="font-size: 20px; margin-top: 3px;">A</li>
+                <li id="12font" style="margin-top: 6px;">A</li>
+            </ul>
+    
+        </section>
+    </nav>
+
+    <header>
+        <h1>About Jquery and Event Handlers</h1>
+    </header>
+
+    <main>
+       <h2 id="revealAboutjQuery">About jQuery</h2>
+        <p class="hidden" id="aboutjQuery">jQuery is a JS library which streamlines many of the processes that designers and developers often take hours to code.</p>
+        <h2 id="revealAboutTwo">Advantages of jQuery</h2>
+        <p class="hidden" id="aboutTwo">jQuery let's you write standard javascript solutions that should work across many different browsers and operating systems.</p>
+    </main>
+
+    <footer>
+        <p>Copyright &copy; 2016 - <span id="currentYear">[placeholder, get the current year]</span>.</p>
+    </footer>
+    <script>
+       //$("#revealAboutjQuery") = focuses on ID
+        // .on() = event handler that contains 2 pieces of info that will execute when event happens. Seperate by comma.
+      $("#revealAboutjQuery").on("click",
+         function () {
+          $("#aboutjQuery").toggle();
+      });
+      $("#revealAboutTwo").on("click",
+        function () {
+          $("#aboutTwo").toggle();
+      });
+    </script>
+     <script src="js/scripts.js"></script>
+</body>
+
+</html>
